@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f5ee">
+<meta name="description" content="一段旋律，六个世界。听游戏原声，猜它来自哪款游戏。十题一局，看看你的游戏记忆有多深。">
+<title>回声电台 — 听歌猜游戏</title><link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css">
+</head><body>
+<div class="page-shell">
+<header class="site-header">
+<a class="brand" href="./" aria-label="回声电台首页"><span class="brand-icon">◉</span><span>回声电台<small>ECHO ARCADE</small></span></a>
+<div class="header-edition"><i></i> 游戏原声特辑 <span>VOL. 001</span></div><button class="rules-button" id="show-rules"><span class="question-icon">?</span> 玩法说明</button>
+</header>
+<main>
+<section class="intro"><div><div class="eyebrow">PRESS PLAY. TRAVEL BACK.</div><h1 id="page-title">旋律响起，<span>游戏记忆上线。</span></h1><p id="intro-description">听一段熟悉的音乐，猜猜它来自哪个游戏世界。</p></div><div class="intro-note"><svg viewBox="0 0 24 24"><path d="M4 14v-3a8 8 0 0 1 16 0v3M4 12h3v8H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Zm16 0h-3v8h3a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Z"/></svg><span>戴上耳机<br><strong>让回忆接管这一局</strong></span><b>✳</b></div></section>
+<section class="mode-bar" aria-label="选择难度">
+<div class="mode-choices" role="group" aria-label="游戏难度">
+<button class="mode-choice active" id="mode-easy" aria-pressed="true"><span class="mode-symbol">☀</span><span><strong>简单模式 <small>EASY</small></strong><em>代表名曲 · 一听就有回忆</em></span><span class="mode-count" id="easy-count"></span></button>
+<button class="mode-choice" id="mode-hard" aria-pressed="false"><span class="mode-symbol">☾</span><span><strong>困难模式 <small>HARD</small></strong><em>冷门曲目 · 纯音乐挑战</em></span><span class="mode-count" id="hard-count"></span></button>
+</div><p class="mode-hint" id="mode-hint">切换难度会开始新的一局 · 两种模式分别记录最高分</p>
+</section>
+<section class="game-layout" id="game-view" aria-label="听歌猜游戏">
+<div class="player-card">
+<div class="turntable" id="turntable">
+<div class="turntable-topline"><span class="on-air"><i></i> <span id="on-air-text">READY TO PLAY</span></span><span class="vocal-tag">VOCAL TRACK / 人声精选</span></div>
+<div class="vinyl-wrap"><div class="vinyl"><div class="vinyl-label"><span class="label-top">ECHO ARCADE</span><svg class="controller" viewBox="0 0 64 42" aria-hidden="true"><path d="M18 8h28c8 0 13 19 12 25-1 6-8 6-14-4H20C14 39 7 39 6 33 5 27 10 8 18 8Z"/><path d="M18 16v12m-6-6h12"/><circle cx="43" cy="18" r="2"/><circle cx="49" cy="25" r="2"/></svg><span class="label-bottom">GUESS THE GAME</span><span class="spindle"></span></div></div></div>
+<div class="tonearm" aria-hidden="true"><div class="tonearm-base"></div><div class="tonearm-rod"></div><div class="tonearm-head"></div></div>
+<div class="player-sticker" aria-hidden="true">每一段旋律<br>都有一个存档点 <span>↗</span></div><span class="side-a" aria-hidden="true">SIDE A <span>33⅓ RPM</span></span>
+<button class="record-hit-area" id="record-play" aria-label="点击唱片播放音乐"></button>
+</div>
+<div class="player-bottom">
+<div class="track-info"><div><span class="track-eyebrow" id="track-eyebrow">神秘曲目 · TRACK 01</span><h2 id="track-title">下一段冒险，藏在旋律里</h2><p id="track-artist">点击播放，听听你的游戏 DNA</p></div><div class="equalizer" id="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="timeline"><span id="current-time">00:00</span><input type="range" id="seek" min="0" max="30" value="0" step="0.1" aria-label="播放进度"><span id="duration">00:30</span></div>
+<div class="player-controls"><button class="icon-button replay-button" id="replay" aria-label="从头重听" title="从头重听"><span data-icon="replay"></span><span>重听</span></button><button class="play-button" id="play" aria-label="播放音乐"><span id="play-icon" data-icon="play"></span></button><div class="volume-control"><button class="icon-button" id="mute" aria-label="静音" title="静音"><span data-icon="volume"></span></button><input type="range" id="volume" min="0" max="1" value="0.65" step="0.05" aria-label="音量"></div></div>
+<div class="audio-message" id="audio-message" role="status">可以反复听，慢慢想，不计时。</div>
+</div></div>
+<div class="question-panel">
+<div class="round-stats"><div class="round-count"><span class="small-label">当前回合</span><strong id="round-number">01<span> / 10</span></strong></div><div class="score-block"><span class="small-label">本局得分</span><strong><span id="score">0</span><small>PTS</small></strong></div><div class="streak-block"><span class="small-label">连续答对</span><strong><span class="streak-fire">↗</span> <span id="streak">0</span></strong></div></div>
+<div class="round-dots" id="round-dots" aria-label="答题进度"></div>
+<div class="question-heading"><span class="question-kicker">LISTEN & CHOOSE</span><h2>这是哪款游戏的音乐？</h2><p id="question-subtitle">相信第一直觉，也可以再听一遍。</p></div>
+<div class="options-grid" id="options" aria-label="六个游戏选项"></div>
+<div class="answer-feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+<div class="round-actions"><span id="keyboard-tip"><kbd>1</kbd> – <kbd>6</kbd> 快速作答</span><button class="skip-button" id="skip">暂时没头绪，跳过 <span data-icon="arrow"></span></button><button class="next-button" id="next" hidden>下一首 →</button></div>
+<div class="round-footnote"><span>◉</span> 每一首，都是曾经冒险过的证据。</div>
+</div></section>
+<section class="full-player-panel" id="full-player-panel" hidden aria-label="完整版播放器">
+<div class="full-player-heading"><div><span class="eyebrow">FULL TRACK · 已解锁</span><h2 id="full-player-title"></h2><p id="full-player-credit"></p></div><button class="icon-button" id="close-full-player" aria-label="关闭完整版播放器">✕</button></div>
+<div id="full-player-content" class="full-player-content"></div>
+<div class="full-player-footer"><span id="full-player-status" role="status">通过官方播放器聆听完整歌曲。</span><a id="full-player-source" target="_blank" rel="noopener noreferrer">打开整首来源 ↗</a></div>
+</section>
+<section class="results-view" id="results-view" aria-labelledby="results-heading" hidden>
+<div class="result-hero"><div class="result-visual" aria-hidden="true">◉<span>✳</span></div><div class="eyebrow">THAT WAS A GOOD SESSION.</div><h2 id="results-heading">这一局，余音未散。</h2><p id="result-message"></p><div class="result-score"><span id="final-score">0</span><small> / 1000 PTS</small></div><div class="result-metrics"><span>答对 <strong id="correct-count">0 / 10</strong></span><span>最高连胜 <strong id="best-streak">0</strong></span><span>本模式纪录 <strong id="best-score">0</strong></span></div><button class="restart-button" id="restart"><span data-icon="replay"></span> 再来一局</button></div>
+<div class="session-tracklist"><div class="tracklist-heading"><h3>这一局的回声</h3><span>YOUR SESSION TRACKLIST</span></div><div id="result-tracks"></div></div>
+</section>
+<div class="bottom-strip"><div><span class="strip-star">✳</span> <strong>游戏会通关，旋律会留下。</strong><span class="strip-sub">属于玩家的音乐记忆小测验</span></div><span class="library-count" id="library-count">人声原声曲库</span></div>
+</main>
+<footer><span>© 2026 回声电台 / MADE FOR PLAYERS, WITH MUSIC.</span><span>试听来自 Apple Music · 完整版通过来源播放器提供 · 版权归原作者所有</span></footer>
+</div>
+<dialog id="rules-dialog"><div class="dialog-heading"><span class="eyebrow">HOW TO PLAY</span><button class="icon-button" id="close-rules" aria-label="关闭玩法说明">✕</button></div><h2>听见，就出发。</h2><p>点击唱片或播放按钮，收听一段游戏原声；从六个选项中找出它来自哪款游戏。</p><ol><li>每局随机抽取 10 首，曲目不重复。</li><li>答对一题得 100 分，满分 1000 分。</li><li>不限答题时间，可以重听或拖动进度。</li><li>跳过本题不得分，随后揭晓正确答案。</li><li>答对、答错或跳过后，均可点击“听完整版”。</li><li>简单模式抽代表曲，困难模式抽冷门曲与纯音乐；切换模式开始新一局。</li><li>曲库包含游戏内歌曲、原声和官方主题曲，同一款游戏可出现不同歌曲。</li></ol><p class="dialog-note">键盘：空格播放 / 暂停，1–6 作答，回车进入下一首。两种模式的最高分分别保存在当前浏览器。</p><button class="restart-button" id="rules-done">知道了，开始听 →</button></dialog>
+<noscript>请启用 JavaScript，以播放音乐并进行答题。</noscript><script type="module" src="./app.mjs"></script>
+</body></html>
